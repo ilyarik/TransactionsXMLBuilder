@@ -41,7 +41,7 @@ class TransactionXML {
 		$paymentInformation->addChild('RecipientINN',null,BatchXML::$xmlns['tns']);
 		$paymentInformation->addChild('RecipientKPP',null,BatchXML::$xmlns['tns']);
 		$paymentInformation->addChild('BankName',null,BatchXML::$xmlns['tns']);
-		$paymentInformation->addChild('PaymentRecipient',null,BatchXML::$xmlns['tns']);
+		$paymentInformation->addChild('PaymentRecipient',$this->payment['name'],BatchXML::$xmlns['tns']);
 		$paymentInformation->addChild('BankBIK',null,BatchXML::$xmlns['tns']);
 		$paymentInformation->addChild('operatingAccountNumber',$this->payment['account'],BatchXML::$xmlns['tns']);	// here is account
 		$paymentInformation->addChild('CorrespondentBankAccount',null,BatchXML::$xmlns['tns']);

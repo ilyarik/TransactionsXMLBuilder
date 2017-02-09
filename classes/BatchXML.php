@@ -10,11 +10,9 @@ class BatchXML {
 			'ti' => 'http://transactioninfo.smev.gpb.ru',
 			'schemaLocation' => 'http://message.smev.gpb.ru SMEV-GPB_Messages_v0.0.3.xsd',
 		);
-	private $accounts;
 	private $payments;
 
-	function __construct($accounts, $payments) {
-		$this->accounts = $accounts;
+	function __construct($payments) {
 		$this->payments = $payments;
 	}
 
@@ -47,6 +45,7 @@ class BatchXML {
 		// format and save document
 		$dom = dom_import_simplexml($page)->ownerDocument;
 		$dom->formatOutput = true;
+		// echo $dom->encoding;
 		$dom->save($filename);
 	}
 	

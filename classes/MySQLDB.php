@@ -11,9 +11,12 @@ class MySQLDB {
 		}
 	}
 
-	public function select($fields,$table,$where=null,$order=null) {
+	public function select($fields,$table,$inner_join,$where=null,$order=null) {
 
 		$query = sprintf("SELECT %s FROM %s", implode($fields,','), $table);
+		if(isset($inner_join)) {
+			$query .= sprintf(" INNER JOIN %s", $inner_join);
+		}
 		if(isset($where)) {
 			$query .= sprintf(" WHERE %s", $where);
 		}
