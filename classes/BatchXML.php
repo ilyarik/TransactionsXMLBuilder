@@ -27,7 +27,7 @@ class BatchXML {
 			self::$xmlns['tns'],
 			self::$xmlns['xsi'],
 			self::$xmlns['ti'],
-			self::$xmlns['schemaLocation']);	// list of namespaces
+			self::$xmlns['schemaLocation']);
 		$page = new SimpleXMLElement(mb_convert_encoding($header.$batch,"UTF-8"));
 
 		$batchHeader = $page->addChild('BatchHeader',null,self::$xmlns['msg']);
@@ -36,8 +36,8 @@ class BatchXML {
 
 		$batchBody = $page->addChild('BatchBody',null,self::$xmlns['msg']);
 
+		// add transactions
 		foreach($this->payments as $payment) {
-			// var_dump($payment);
 			$transactionObj = new TransactionXML($batchBody, $payment);
 			$transactionObj->getXML();
 		}
@@ -45,7 +45,6 @@ class BatchXML {
 		// format and save document
 		$dom = dom_import_simplexml($page)->ownerDocument;
 		$dom->formatOutput = true;
-		// echo $dom->encoding;
 		$dom->save($filename);
 	}
 	

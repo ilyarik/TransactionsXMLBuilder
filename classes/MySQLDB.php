@@ -6,24 +6,12 @@ class MySQLDB {
 	function __construct($db_location, $db_user, $db_password, $db_name) {
 		$this->conn = new mysqli($db_location, $db_user, $db_password, $db_name);
 		if ($this->conn->connect_error) {
-			die(mb_convert_encoding('Ошибка подключения (' . $this->conn->connect_errno . ') '
-				. $this->conn->connect_error, "UTF-8"));
+			throw new Exception('Нет подключения к БД. Работа остановлена.');
+			// die(mb_convert_encoding('Ошибка подключения (' . $this->conn->connect_errno . ') ' . $this->conn->connect_error, "UTF-8"));
 		}
 	}
 
-	public function select($fields,$table,$inner_join,$where=null,$order=null) {
-
-		$query = sprintf("SELECT %s FROM %s", implode($fields,','), $table);
-		if(isset($inner_join)) {
-			$query .= sprintf(" INNER JOIN %s", $inner_join);
-		}
-		if(isset($where)) {
-			$query .= sprintf(" WHERE %s", $where);
-		}
-		if(isset($order)) {
-			$query .= sprintf(" ORDER BY %s", $order);
-		}
-		$query .= ";";
+	public function select($query) {
 
 		$result = $this->conn->query($query);
 		$result_array = array();
