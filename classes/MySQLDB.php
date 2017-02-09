@@ -11,9 +11,16 @@ class MySQLDB {
 		}
 	}
 
-	public function select($fields,$table,$order) {
+	public function select($fields,$table,$where=null,$order=null) {
 
-		$query = sprintf("SELECT %s FROM %s ORDER by %s DESC;", implode($fields,','), $table, $order);
+		$query = sprintf("SELECT %s FROM %s", implode($fields,','), $table);
+		if(isset($where)) {
+			$query .= sprintf(" WHERE %s", $where);
+		}
+		if(isset($order)) {
+			$query .= sprintf(" ORDER BY %s", $order);
+		}
+		$query .= ";";
 
 		$result = $this->conn->query($query);
 		$result_array = array();
