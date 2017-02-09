@@ -4,6 +4,6 @@
 !readme.md
 !.gitkeep
 !*.php
-!classes/*
+!classes
 !*.bat
 !*.sql
